@@ -11,6 +11,18 @@ const displayPhones = phones => {
     const phoneContainer = document.getElementById('phones-container');
     // clear phone container cards before adding new cards
     phoneContainer.textContent = '';
+    // display all show button process
+    const displayShowAllButton = document.getElementById('show-all-container');
+    if(phones.length > 12){
+        displayShowAllButton.classList.remove('hidden');
+    }
+    else{
+        displayShowAllButton.classList.add('hidden');
+    }
+
+
+    //  display only first 10 products
+    phones = phones.slice(0,12);
 
     // console.log(phones);
     phones.forEach(phone => {
@@ -38,15 +50,30 @@ const displayPhones = phones => {
         phoneContainer.appendChild(phoneCard);
 
     });
+    // hide loading spinner
+    toggleLoadingSpinner(false);
 
 }
 
 // handle search button
 const handleSearch=() =>{
+    toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     console.log(searchText);
     loadPhone(searchText);
 }
 
-loadPhone();    
+const toggleLoadingSpinner = (isLoading) => {
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    if(isLoading){
+        loadingSpinner.classList.remove('hidden');
+
+    }
+    else{
+        loadingSpinner.classList.add('hidden');
+    }
+}
+
+  
